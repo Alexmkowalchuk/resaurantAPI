@@ -39,6 +39,7 @@ app.delete('api/restaurants/:id',(req,res)=>{
     res.status(204).end();
 });
 
+
 db.initialize().then(()=>{
     app.listen(HTTP_PORT, ()=>{
         console.log(`server listening on: ${HTTP_PORT}`);
