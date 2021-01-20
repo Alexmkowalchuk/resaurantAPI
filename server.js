@@ -22,33 +22,40 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.post('api/restaurants/:data',(req,res)=>{
-    let result = db.addNewRestaurant(req.query.data);
-    res.json(result);
+app.get('/',(req,res)=>{
+    res.json({"message" : "API listening"});
 });
 
-app.get('/api/restaurants/?:page?:perPage',(req,res)=>{
-    console.log(req.query.page + req.query.perPage);
+app.post('/api/restaurants/:data',(req,res)=>{
+    let obj = db.addNewRestaurant(req.query.data);
+    obj ? res.json(obj) : res.status(201).json({"message": "Failed to create"});
+});
+
+app.get('/api/restaurants',(req,res)=>{
     let obj = db.getAllRestaurants(req.query.page,req.query.perPage);
     res.json(obj);
 });
 
-app.get('api/restaurants/:id',(req,res)=>{
-    let obj = db.getRestaurantById(req.query.id);
+app.get('/api/restaurants/:id',(req,res)=>{
+    let obj = db.getRestaurantById(req.params.id);
     obj ? res.json(obj) : res.status(404).json({"message": "Bad"}); 
 });
 
-app.put('api/restaurants/:data,id',(req,res)=>{
-   db.updateRestaurantById(req.query.data,req.query.id); 
+app.put('/api/restaurants/:id',(req,res)=>{
+    if(req.query.id != req.body._id){
+        let obj = db.updateRestaurantById(req.body.data,req.query.id); 
+        obj ? res.json(obj) : res/status(404).json({"message" : "Resource not found"});
+    } else {
+        res/status(404).json({"message" : "Resource not found"});
+    }
 });
 
-app.delete('api/restaurants/:id',(req,res)=>{
+app.delete('/api/restaurants/:id',(req,res)=>{
     if(db.getRestaurantById(req.query.id)) {
         result = db.deleteRestaurantById(req.query.id);
     }
     res.status(204).end();
 });
-
 
 db.initialize().then(()=>{
     app.listen(HTTP_PORT, ()=>{
