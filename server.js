@@ -1,3 +1,13 @@
+/*********************************************************************************
+*  WEB422 – Assignment 1
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  
+*  No part of this assignment has been copied manually or electronically from any other source
+*  (including web sites) or distributed to other students.
+* 
+*  Name: ___Alex Kowalchuk____ Student ID: ______________ Date: ______2021-01-20______
+*  Heroku Link: ______https://amk-web422-assignment1.herokuapp.com/________
+********************************************************************************/ 
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
